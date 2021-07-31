@@ -20,9 +20,12 @@ class WalletsController < ApplicationController
     )
   end
 
+  def pay
+  end
+
   def transactions
-    wallet = Wallet.find(params[:id])
-    @events = wallet.events
+    @wallet = Wallet.find(params[:id])
+    @events = @wallet.events
 
     render layout: false
   end

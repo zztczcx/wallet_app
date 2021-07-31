@@ -14,6 +14,10 @@
  *= require_self
  */
 
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+
 .panel {
   border: 1px solid #aaa;
   margin: 10px;

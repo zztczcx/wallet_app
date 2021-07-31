@@ -7,7 +7,7 @@ Rails.application.routes.draw do
         post :deposit
         post :withdraw
         post :transfer
-        post :send
+        post :pay
         get  :transactions
       end
     end

@@ -25,22 +25,111 @@
               span=wallet.name
             div
               label balance: 
-              span=wallet.balance 
+              span style="background-color: yellow"
+                =wallet.balance 
             br
             .actions
               div
-                button withdraw
-                button.deposit-btn deposit
+                button.withdraw-btn data-url=withdraw_user_wallet_path(user, wallet)
+                  |withdraw
+
+                button.deposit-btn data-url=deposit_user_wallet_path(user, wallet)
+                  |deposit
               div
-                button send
+                button.send-btn data-url=pay_user_wallet_path(user, wallet)
+                  |send
                 button.transactions-btn data-url=transactions_user_wallet_path(user, wallet)
                   |transactions
 
       .transactions
 
+#message_dialog
+
 javascript:
   $(function(){
-    $('.deposit').click(function(){
+
+    var display_dialog = function(type, url, content, title){
+
+      var message = $('#message_dialog')
+      message.html(content)
+
+      var buttons = [{
+        text: 'Cancel',
+        click: function(){message.dialog('close')}
+      }]
+      
+      if(type == 'deposit'){
+        buttons.push({
+          text: 'Confirm',
+          click: function(){
+            $.post(
+              url,
+              {amount: $('#deposit_amount').val()} 
+            ).done(function(){location.reload();})
+          }
+        })
+      }
+
+      if(type == 'withdraw'){
+        buttons.push({
+          text: 'Confirm',
+          click: function(){
+            $.post(
+              url,
+              {amount: $('#withdraw_amount').val()} 
+            ).done(function(){location.reload();})
+          }
+        })
+      }
+
+      if(type == 'send'){
+        buttons.push({
+          text: 'Confirm',
+          click: function(){
+            $.post(
+              url,
+              {
+                amount: $('#send_amount').val(),
+                send_to_wallet_id: $('#send_to_wallet_id').val()
+              } 
+            ).done(function(){location.reload();})
+          }
+        })
+      }
+
+      message.dialog(
+        {
+          buttons: buttons,
+          title: title,
+          modal: true,
+          closeOnEscape: false,
+          dialogClass: 'no-close',
+          width: "30%"
+        }
+      ).show()
+    }
+
+
+    $('.deposit-btn').click(function(e){
+      var content = "<label>Amount:</label><input type='text' id='deposit_amount'>"
+      var title = 'How much do you want to deposit?'
+      var url = $(e.target).data('url') 
+      display_dialog('deposit',url, content, title)
+    })
+
+    $('.withdraw-btn').click(function(e){
+      var content = "<label>Amount:</label><input type='text' id='withdraw_amount'>"
+      var title = 'How much do you want to withdraw?'
+      var url = $(e.target).data('url') 
+      display_dialog('withdraw',url, content, title)
+    })
+
+    $('.send-btn').click(function(e){
+      var content = "<label>Amount:</label><input type='text' id='withdraw_amount'>" +
+                    "<br><label>Send to:</label><input type='text' id='send_to_wallet_id' placeholder='wallet_id'>"
+      var title = 'How much do you want to send?'
+      var url = $(e.target).data('url') 
+      display_dialog('send',url, content, title)
     })
 
     $('.transactions-btn').click(function(e){
