@@ -14,10 +14,18 @@ class WalletsController < ApplicationController
   end
 
   def withdraw
-    Events::Wallet::Withdraw.create(
+    command = Commands::Wallet::Withdraw.new(
       wallet_id: params[:id],
-      data: wallet_withdraw_data
+      amount: params[:amount].to_f
     )
+
+    if command.valid?
+      command.call
+    else
+      render json: {
+        errors: command.errors
+      }, status: 403
+    end
   end
 
   def pay
