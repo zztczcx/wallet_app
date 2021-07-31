@@ -1,0 +1,41 @@
+.wrapper
+  h1 Wallet App
+
+  .panel
+    =form_with url: users_path, method: 'post', local: true do
+       =submit_tag "Add new user"
+  
+  -User.all.each do |user|
+    .panel
+      .user-card
+        div
+          label user_name: 
+          span=user.name
+        .actions
+          =form_with url: user_wallets_path(user), method: 'post', local: true do
+             =submit_tag "Create wallet"
+      .wallets
+        -user.wallets.each do |wallet|
+          .wallet-card
+            div
+              label wallet_name: 
+              span=wallet.name
+            div
+              label balance: 
+              span=wallet.balance 
+            br
+            .actions
+              div
+                button withdraw
+                button.deposit deposit
+              div
+                button send
+                button transactions
+
+      .transactions
+
+javascript:
+  $(function(){
+    $('.deposit').click(function(){
+    })
+  })

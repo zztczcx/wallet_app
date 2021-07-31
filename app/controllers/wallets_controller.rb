@@ -1,18 +1,20 @@
 class WalletsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:create, :destroy]
+  skip_before_action :verify_authenticity_token
 
   def create
-    Events::Wallet::Create.create(data: { user_id: 1 })
-    render json: {status: 'ok'}
+    Events::Wallet::Create.create(data: create_wallet_params)
+    redirect_to controller: :users, action: :index
   end
 
-  def destroy
-    Events::User::Destroyed.create(user_id: user_params[:id], payload: user_params)
+  def withdraw
   end
 
   private
 
-  def user_params
-    params.require(:user).permit(:name, :email, :password, :id)
+  def create_wallet_params
+    {
+      user_id: params[:user_id],
+      name: "wallet_#{Wallet.count + 1}"
+    }
   end
 end

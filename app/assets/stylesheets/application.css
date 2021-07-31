@@ -13,3 +13,26 @@
  *= require_tree .
  *= require_self
  */
+
+.panel {
+  border: 1px solid #aaa;
+  margin: 10px;
+  overflow: hidden;
+}
+
+.user-card, .wallets, .transaction-card{
+  border: 1px solid #ccc;
+  margin: 5px;
+  margin-right: 20px;
+  float: left;
+}
+
+.wallet-card{
+  margin-bottom: 10px;
+  border-top: 1px solid #777;
+  width: 200px;
+}
+
+.wallet-card button{
+  width: 100px
+}

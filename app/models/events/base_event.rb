@@ -70,7 +70,6 @@ class Events::BaseEvent < ActiveRecord::Base
   end
 
   def build_aggregate
-    byebug
     public_send "build_#{aggregate_name}"
   end
 
