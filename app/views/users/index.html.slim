@@ -5,7 +5,7 @@
     =form_with url: users_path, method: 'post', local: true do
        =submit_tag "Add new user"
   
-  -User.all.each do |user|
+  -User.all.order(id: :asc).each do |user|
     .panel
       .user-card
         div
@@ -15,7 +15,7 @@
           =form_with url: user_wallets_path(user), method: 'post', local: true do
              =submit_tag "Create wallet"
       .wallets
-        -user.wallets.each do |wallet|
+        -user.wallets.order(id: :asc).each do |wallet|
           .wallet-card
             div
               label wallet_id: 
@@ -125,7 +125,7 @@ javascript:
     })
 
     $('.send-btn').click(function(e){
-      var content = "<label>Amount:</label><input type='text' id='withdraw_amount'>" +
+      var content = "<label>Amount:</label><input type='text' id='send_amount'>" +
                     "<br><label>Send to:</label><input type='text' id='send_to_wallet_id' placeholder='wallet_id'>"
       var title = 'How much do you want to send?'
       var url = $(e.target).data('url') 

@@ -41,6 +41,10 @@
   width: 100px
 }
 
+.transactions{
+  overflow: hidden;
+}
+
 .transactions .type {
   display: inline-block;
   width: 100px;

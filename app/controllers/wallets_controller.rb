@@ -21,6 +21,10 @@ class WalletsController < ApplicationController
   end
 
   def pay
+    Events::Wallet::Pay.create(
+      wallet_id: params[:id],
+      data: wallet_pay_data
+    )
   end
 
   def transactions
@@ -48,6 +52,13 @@ class WalletsController < ApplicationController
   def wallet_withdraw_data
     {
       amount: params[:amount].to_f
+    }
+  end
+
+  def wallet_pay_data
+    {
+      amount: params[:amount].to_f,
+      send_to_wallet_id: params[:send_to_wallet_id].to_i
     }
   end
 end
