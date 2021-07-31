@@ -1,0 +1,8 @@
+h3
+  |transactions:
+-@events.each do |event|
+  .transaction
+    div
+      span.datetime=event.created_at.strftime('%d %b %Y %H:%M:%S')
+      span.type=event.type.split('::')[-1]
+      span.detail=event.data

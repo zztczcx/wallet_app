@@ -36,3 +36,9 @@
 .wallet-card button{
   width: 100px
 }
+
+.transactions .type {
+  display: inline-block;
+  width: 100px;
+  margin-left: 10px;
+}

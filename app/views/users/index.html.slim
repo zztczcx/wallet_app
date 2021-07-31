@@ -18,6 +18,9 @@
         -user.wallets.each do |wallet|
           .wallet-card
             div
+              label wallet_id: 
+              span=wallet.id
+            div
               label wallet_name: 
               span=wallet.name
             div
@@ -27,15 +30,23 @@
             .actions
               div
                 button withdraw
-                button.deposit deposit
+                button.deposit-btn deposit
               div
                 button send
-                button transactions
+                button.transactions-btn data-url=transactions_user_wallet_path(user, wallet)
+                  |transactions
 
       .transactions
 
 javascript:
   $(function(){
     $('.deposit').click(function(){
+    })
+
+    $('.transactions-btn').click(function(e){
+      var url = $(e.target).data('url') 
+      $.get(url).done(function(partial){
+        $(e.target).closest('.panel').find('.transactions').html(partial)
+      })
     })
   })
