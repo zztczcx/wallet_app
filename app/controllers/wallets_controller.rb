@@ -24,7 +24,7 @@ class WalletsController < ApplicationController
     else
       render json: {
         errors: command.errors
-      }, status: 403
+      }, status: 405
     end
   end
 
