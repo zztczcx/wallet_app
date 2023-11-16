@@ -40,9 +40,9 @@ Then you can view the app in localhost:3000
 
 #### Screenshots
 
-![[Screen Shot 2021-07-31 at 8.11.30 pm.png]]
+![a](./"Screen Shot 2021-07-31 at 8.11.30 pm.png")
 
-![[Screen Shot 2021-07-31 at 8.12.04 pm.png]]
+![b](./Screen Shot 2021-07-31 at 8.12.04 pm.png)
 
 
 ###  how to review your code
